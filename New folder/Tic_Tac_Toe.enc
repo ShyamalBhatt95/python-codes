@@ -1,0 +1,80 @@
+def print_board(pos=False):
+    """It will cross dot Board"""
+    if not pos : 
+        pos = [ 1,2,3,4,5,6,7,8,9]
+    top = " {} "+"|"+" {} "+"|"+" {} "
+    middle = "_"*3+"|"+"_"*3+"|"+"_"*3
+    print(top.format(pos[0],pos[1],pos[2]))
+    print(middle)
+    print(top.format(pos[3],pos[4],pos[5]))
+    print(middle)
+    print(top.format(pos[6],pos[7],pos[8]))
+
+
+winning_pos = { 
+                0:[(1,2),(4,8),(3,6)],
+                1:[ (4,7),(0,2) ],
+                2:[ (0,1),(4,6),(5,8)],
+                3:[ (0,6),(4,5)],
+                4:[ (1,7),(3,5)],
+                5:[ (2,8),(3,4)],
+                6:[ (0,3),(4,2),(7,8)],
+                7:[ (1,4),(6,8)],
+                8:[ (0,4),(2,5),(6,7)]
+               
+                    }
+
+current_pos = [" ",]*9
+import time
+def play_box():
+    global current_pos
+    print_board()
+    p1_ch = "X"
+    p2_ch = "0"
+    covered_pos = []
+    pl1 = input("Enter player1 Name : ")
+    pl2 = input("Enter player2 Name : ")
+    print(f"Choice of {pl1} = {p1_ch}")
+    print(f"Choice of {pl2} = {p2_ch}")
+    c = 1 
+    while c <= 9 :
+        time.sleep(3)
+        os.system('cls')
+        covered_pos.sort()
+        if c %2 : 
+            print_board(current_pos)
+            p1 = int(input(f"Enter your pos {pl1} (1,9) :  "))
+            if p1 in covered_pos : 
+                print("Already Covered Position Please Select Another Pos")
+                print("Choose except ",covered_pos)
+                continue
+            covered_pos.append(p1)
+            current_pos[p1-1] = p1_ch
+            print_board(current_pos)
+            check = p1 - 1
+            data = winning_pos.get(check)
+            for d in data : 
+                if p1_ch == current_pos[d[0]] and p1_ch == current_pos[d[1]] :
+                    print(f"{pl1} is Winner")
+                    exit(0)
+                    
+            
+            #condition check if p1 is in win postion if it is than print and break
+        else : 
+            print_board(current_pos)
+            p2 = int(input(f"Enter your pos {pl2} (1,9) : "))
+            if p2 in covered_pos : 
+                print("Already Covered Position Please Select Another Pos")
+                print("Choose except ",covered_pos)
+                continue
+            covered_pos.append(p2)
+            current_pos[p2-1] = p2_ch
+            print_board(current_pos)
+            #check whethre p2 is winner 
+
+        c = c + 1
+  
+import os
+
+os.system('cls')
+play_box()

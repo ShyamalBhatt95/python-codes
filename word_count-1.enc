@@ -1,0 +1,38 @@
+
+import os
+
+os.system('cls')
+print("\n\n............Welcome to Word Count Program.......\n\n")
+filename =input("Enter file location : ".rjust(50))
+print("\n\n\n")
+
+if os.path.exists(filename) : 
+    if os.path.isfile(filename) : 
+        if os.access(filename,os.R_OK) : 
+            fp = open(filename) 
+            data = fp.read()
+            fp.close()
+            lines = len(data.split('\n'))
+            words = len(data.split())
+            chars = 0
+            for char in data : 
+                if char is not '' and char is not '\n' and char is not ' ' and char is not '\t' : 
+                    chars += 1
+            print(f"\n\nResults for your file {filename} are below : - ")
+            print("\n\n")
+            print(f"Number of Lines are {lines}")
+            print(f"Number of Words are {words}")
+            print(f"Number of Chars are {chars}")
+            print("\n\n\n")
+        else : 
+            print("Error!! Permission Denied\nYou Don't Have Enough Permission to open this file, ask your admin further")
+    else : 
+        print("Error!! You Idiot !! We asked for file not for Directory")
+else : 
+    print("Error!!! No such file of Directory Exists Please Double Check your File Path")
+
+
+
+
+input("\n\n\nPress Any Key to Exit".rjust(50))
+os.system('cls')
